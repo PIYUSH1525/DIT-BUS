@@ -5,7 +5,7 @@ const usermodel = require('../models/user.model');
 module.exports.createUser = async({
     firstname, lastname , sap_id, password
 }) =>{
-    if (!firstname || !email || !password){
+    if (!firstname || !sap_id || !password){
         throw new Error('All fields are required')                              // Check For all parameter are there 
     }
     const user = userModel.create({
