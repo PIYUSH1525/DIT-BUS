@@ -17,7 +17,13 @@ router.post('/register', [
     userController.registerUser
 )
 
-
-
+router.post('/login',[
+    body('sap_id')
+    .isNumeric().withMessage('SAP ID must be a number')              
+    .isLength({ min: 10, max: 10 }).withMessage('SAP ID must be exactly 10 digits'),
+    body('password').isLength({min:6}).withMessage('Password Invalid')
+],
+    userController.loginUser
+)
 
 module.exports = router;
