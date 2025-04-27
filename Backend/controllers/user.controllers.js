@@ -1,6 +1,7 @@
 const userModel = require('../models/user.model');
 const userService = require('../services/user.service')
 const {validationResult} = require('express-validator')
+const blacklistTokenModel = require('../models/blacklistToken.model'); // Import the blacklist token model
 
 
 // If any errors occurs in thr rout this will handel esle the process will continue
@@ -54,3 +55,12 @@ module.exports.loginUser = async(req,res,next)=>{
 module.exports.getUserProfile = async(req,res,next)=>{
     res.status(200).json(req.user); 
  } // req.user is set in the auth middleware
+
+ module.exports.logoutUser = async(req,res,next)=>{
+    res.clearCookie('token'); // Clear the token cookie to log out the user
+    const token = req.cookies.token || req.headers.authorization?.split(' ')[ 1 ]; // Get the token from cookies or authorization header
+
+    await blacklistTokenModel.create({ token }); // Add the token to the blacklist
+
+    res.status(200).json({message:'Logout Successful'}); // Send a success message
+    }
