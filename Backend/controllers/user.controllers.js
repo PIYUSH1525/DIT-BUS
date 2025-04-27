@@ -9,7 +9,7 @@ module.exports.registerUser = async(req,res,next) =>{
     if (!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()});
     }
-    const{fullname,sap_id,password} = req.body;
+    const{fullname,sap_id,password} = req.body;x
 
     const hashedPassword = await userModel.hashPassword(password);
 
@@ -34,7 +34,7 @@ module.exports.loginUser = async(req,res,next)=>{
     }
 
     const {sap_id,password} = req.body;
-    const user = await userModel.findOne({sap_id}).select('+password');    //FOr finding User in the Database   // +password because select: false so we need to acquire it 
+    const user = await userModel.findOne({sap_id}).select('+password');    //For finding User in the Database   // +password because select: false so we need to acquire it 
 
     if(!user){
         return res.status(401).json({message:'Invalid Sap Id or password'});
@@ -50,3 +50,7 @@ module.exports.loginUser = async(req,res,next)=>{
 
     res.status(200).json({token , user});   // after token gen send token and res 
 }
+
+module.exports.getUserProfile = async(req,res,next)=>{
+    res.status(200).json(req.user); 
+ } // req.user is set in the auth middleware

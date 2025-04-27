@@ -3,7 +3,6 @@ const router = express.Router();
 const {body} = require("express-validator");   //for input validation
 const userController = require('../controllers/user.controllers');
 
-
 router.post('/register', [
     //Used SAP ID for Validation with Constrains
     body('sap_id')
@@ -16,7 +15,6 @@ router.post('/register', [
 ],
     userController.registerUser
 )
-
 router.post('/login',[
     body('sap_id')
     .isNumeric().withMessage('SAP ID must be a number')              
@@ -25,5 +23,7 @@ router.post('/login',[
 ],
     userController.loginUser
 )
+
+router.get('/profile', userController.getUserProfile)
 
 module.exports = router;
