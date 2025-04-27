@@ -9,7 +9,7 @@ module.exports.registerUser = async(req,res,next) =>{
     if (!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()});
     }
-    const{fullname,sap_id,password} = req.body;x
+    const{fullname,sap_id,password} = req.body;
 
     const hashedPassword = await userModel.hashPassword(password);
 
@@ -21,7 +21,7 @@ module.exports.registerUser = async(req,res,next) =>{
     });
 
     const token = user.generateAuthToken();
-
+    res.cookie('token', token); // Set the token in a cookie for authentication
     res.status(201).json({token,user});
 
 }

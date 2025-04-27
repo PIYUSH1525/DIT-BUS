@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {body} = require("express-validator");   //for input validation
 const userController = require('../controllers/user.controllers');
+const authMiddleware = require('../middlewares/auth.middleware'); // for authentication
 
 router.post('/register', [
     //Used SAP ID for Validation with Constrains
@@ -24,6 +25,6 @@ router.post('/login',[
     userController.loginUser
 )
 
-router.get('/profile', userController.getUserProfile)
+router.get('/profile', authMiddleware.authUser, userController.getUserProfile)
 
 module.exports = router;
