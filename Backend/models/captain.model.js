@@ -37,7 +37,7 @@ const captainSchema = new mongoose.Schema({
     },
 
     vehicle: {
-        VehicleNo: {  //Bus numbeer
+        vehicleNo: {  //Bus numbeer
             type: String,
             required: true,
             minlength: [ 1, 'Vehicle number must be at least 1 characters long' ],
