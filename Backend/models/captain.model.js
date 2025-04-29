@@ -37,7 +37,7 @@ const captainSchema = new mongoose.Schema({
     },
 
     vehicle: {
-        vehicleNo: {  //Bus numbeer
+        vehicleNo: {
             type: String,
             required: true,
             minlength: [ 1, 'Vehicle number must be at least 1 characters long' ],
@@ -52,10 +52,10 @@ const captainSchema = new mongoose.Schema({
             required: true,
             min: [ 1, 'Capacity must be at least 1' ],
         },
-        vehicleType: {   //  Bus or mini van  
+        vehicleType: {
             type: String,
             required: true,
-            enum: [ 'bus', 'mini van ' ],
+            enum: [ 'bus', 'mini-van' ],
         }
     },
 
